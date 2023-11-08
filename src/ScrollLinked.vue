@@ -1,7 +1,7 @@
 <template>
-    <div ref="elem" class="scroll-linked">
+    <component :is="tag" ref="elem" class="scroll-linked">
         <slot></slot>
-    </div>
+    </component>
 </template>
 
 <script lang="ts">
@@ -94,6 +94,8 @@ export default {
         shownAlready: {validator: ScrollLinkedValueValidator.validate},
         /** content size */
         size: {validator: ScrollLinkedValueValidator.validate},
+        
+        tag: {type: String, default: "div"}
     },
     methods: {
         onScroll() {

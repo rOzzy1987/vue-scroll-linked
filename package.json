@@ -1,6 +1,6 @@
 {
   "name": "@rozzy/vue-scroll-linked",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {
     "vue": "^3.3.4"
   },
