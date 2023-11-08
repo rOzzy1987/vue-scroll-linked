@@ -1,0 +1,34 @@
+{
+  "name": "@rozzy/vue-scroll-linked",
+  "version": "0.1.0",
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "description": "Scroll linked components for Vue 3",
+  "main": "ScrollLinked.vue",
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rOzzy1987/vue-scroll-linked"
+  },
+  "keywords": [
+    "scroll linked",
+    "scroll",
+    "animated",
+    "vue3",
+    "vue",
+    "typescript"
+  ],
+  "files": [
+    "src/*",
+    "examples/*.html",
+    "examples/*.json",
+    "examples/*.ts",
+    "examples/*.cjs",
+    "examples/src/*"
+  ],
+  "author": "Mihály Rozovits <rozovits.mihaly@gmail.com>",
+  "license": "MIT"
+}
