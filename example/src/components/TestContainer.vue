@@ -11,24 +11,37 @@
         <LoremIpsum :t="10" />
     </ParallaxContainer>
 
+    <ScrollLinked tag="header" v-model:absolute="absolute" :class="headerClass" @mouseover="() => active = true" @mouseout="() => active = false">
+        <h1>Menu</h1>
+    </ScrollLinked>
+
 </template>
 
 <script lang="ts">
 import LoremIpsum from './LoremIpsum.vue';
 import ParallaxContainer from '../../../src/ParallaxContainer.vue';
 import SlideshowContainer from '../../../src/SlideshowContainer.vue';
+import ScrollLinked from '../../../src/ScrollLinked.vue';
 
 export default {
     data() {
-        return{};
+        return{
+            absolute: {x:0, y: 0},
+            active: false
+        };
     },
-    components: { LoremIpsum, ParallaxContainer, SlideshowContainer }
+    computed: {
+        headerClass() {
+            return this.absolute.y >= -60 || this.active ? "active" : "";
+        }
+    },
+    components: { LoremIpsum, ParallaxContainer, SlideshowContainer, ScrollLinked }
 }
 </script>
 
 <style>
 
-.scroll-linked {
+div.scroll-linked {
     height: 100vh;
     width: 100vw;
     position: absolute;
@@ -86,5 +99,21 @@ h1, h2 {
 .parallax .content.in-view {
     top: 50px;
     opacity: 1;
+}
+
+
+header {
+    background: #5A0;
+    Color: #FFF;
+    position: fixed;
+    width: 100%;
+    transition: top .8s ease-out;
+    box-shadow: 0 -10px 20px 5px black;
+    top: -50px;
+    height: 60px;
+}
+
+header.active {
+    top: 0px;
 }
 </style>

@@ -34,6 +34,7 @@ export default {
             shownVal: {x:0,y:0} as IScrollLinkedValue,
             shownAlreadyVal: {x:0,y:0} as IScrollLinkedValue,
             sizeVal: {x:0,y:0} as IScrollLinkedValue,
+            absoluteVal: {x:0,y:0} as IScrollLinkedValue,
         }
     },
     computed: {
@@ -65,6 +66,10 @@ export default {
             get(): IScrollLinkedValue { return this.shownAlreadyVal; },
             set(v: IScrollLinkedValue) { this.shownAlreadyVal = v;this. $emit("update:shownAlready", v)}
         },
+        _absolute: {
+            get(): IScrollLinkedValue { return this.absoluteVal; },
+            set(v: IScrollLinkedValue) { this.absoluteVal = v;this. $emit("update:absolute", v)}
+        },
 
         _size: {
             get(): IScrollLinkedValue { return this.sizeVal; },
@@ -92,6 +97,8 @@ export default {
         scrolledOut: {validator: ScrollLinkedValueValidator.validate},
         /** Similar to <ref="shown">shown</ref> but the value doesn't decrease after scrolling past */
         shownAlready: {validator: ScrollLinkedValueValidator.validate},
+        /** The absolute scroll value */
+        absolute: {validator: ScrollLinkedValueValidator.validate},
         /** content size */
         size: {validator: ScrollLinkedValueValidator.validate},
         
@@ -118,6 +125,8 @@ export default {
             this.getScrolledIn(rect, vRect);
             this.getScrolledOut(rect, vRect);
             this.getShown(rect, vRect);
+            this.getAbsolute();
+
         },
         getPhase(bounds: IScrollLinkedRect, client:IScrollLinkedRect) {
             if(this.phase === undefined)
@@ -189,6 +198,11 @@ export default {
             if(bounds.x < client.x || bounds.x + bounds.width < client.x + client.width) x = 1;
             if(bounds.y < client.y || bounds.y + bounds.height < client.y + client.height) y = 1;
             this._shownAlready = this.clamp(x,y); 
+        },
+        getAbsolute() {
+            if(this.absolute === undefined) return; 
+            const docRect = (document.getElementsByTagName('body')[0] as HTMLBodyElement).getBoundingClientRect();
+            this._absolute = {x: docRect.left, y: docRect.top};
         },
         clamp(x: number, y: number) : IScrollLinkedValue {
             x = x > 1 ? 1 : x < 0 ? 0 : x;
